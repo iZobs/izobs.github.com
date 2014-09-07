@@ -4,15 +4,19 @@ title: "openWRT-RT3070驱动的移植"
 date: 2014-8-26 15:25
 category: "openwrt"
 tags : "openwrt"
+comments: ture
+share: ture 
 ---
 
 ###RT3070驱动的获取
 RT3070的驱动源码有sta和softap两种，而RT3070的驱动源码在Ralink官网不好弄，在CSDN花了3个大洋下载了RT3070的驱动源码.这边把SotfAp修改后的源码推送到github，跟大家分享:
 
-```
+{% highlight bash %}
+
 $ git clone https://github.com/iZobs/RT3070_SoftAP.git
 
-```
+{% endhighlight %} 
+
 因为我是想把这个驱动移植到我的webee210-WRT上，所以我把代码已经修改好了。下面说说都修改了什么地方。
 
 ###修改编译配置
@@ -20,7 +24,7 @@ __1.修改Makefile__
 
 `注意：我们需要修改的MODULE,NETIF,UTIL,目录下的Makfile,修改的内容是一样的`
 
-```
+{% highlight bash %}
 #PLATFORM: Target platform
 #PLATFORM = PC
 #PLATFORM = 5VT
@@ -52,7 +56,7 @@ ifeq ($(PLATFORM),IXP)
 	CROSS_COMPILE = /home/webee-wrt/OpenWrt-Toolchain-s5pc1xx-for-arm_v7-a-gcc-4.3.3+cs_eglibc-2.8_eabi/toolchain-arm_v7-a_gcc-4.3.3+cs_eglibc-2.8_eabi/usr/bin/arm-openwrt-linux-gnueabi-
 	endif
 	 
-```
+{% endhighlight %} 
 
 `LINUX_SRC`为你的编译好的内核的路径
 `CROSS_COMPILE`为你的交叉编译器的路径
@@ -61,7 +65,8 @@ __2.修改config.mk__
 如果你用我的src，这个文件则不用修改了，因为我已经改好了，这个文件注意是修改编译选项的BIG_ENDIAN选项,因为arm是小尾系统，所以我们需要这个地方。
 `注意：我们需要修改的MODULE,NETIF,UTIL,目录下的os/linux下的config.mk`
 
-```
+{% highlight bash %}
+
 feq ($(PLATFORM),RMI)
 	WFLAGS += -DRT_BIG_ENDIAN
 	endif
@@ -86,8 +91,8 @@ ifeq ($(PLATFORM),IXP)
 				ifeq ($(PLATFORM),SMDK)
 	        EXTRA_CFLAGS := $(WFLAGS) -I$(RT28xx_DIR)/include
 			endif
-```
 
+{% endhighlight %} 
 
 __3.修改usb_main_dev.c__
 
@@ -100,37 +105,44 @@ __4.修改rt_usb_util.c__
 ###编译安装
 __1.编译__
 
-```
+{% highlight bash %}
+
 $ sudo make ARCH=arm KBUILD_NOPEDANTIC=1
 
-```
+{% endhighlight %} 
 
 __2.安装__
 将下面的文件从找MODULE,NETIF,UTIL,目录下的os/linux找出来，放在一个目录叫Wireless,然后把拷贝到你的开发板。                     
 
-```
+{% highlight bash %}
+
 └── Wireless                   
     ├── RT2870AP.dat                   
     ├── rt3070ap.ko                    
     ├── rtnet3070ap.ko                  
     └── rtutil3070ap.ko                      
-```
+
+{% endhighlight %} 
+
 mkdir /etc/Wireless/RT2870AP/,将RT2870AP.dat存放于此                 
 
 下面加载驱动，一定要按照顺序来哟,于是我用了一个简单脚步                  
 `/etc/init.d/setup_ra0`
 
-```
+{% highlight bash %}
+
 insmod /lib/RT3070/Wireless/rtutil3070ap.ko
 insmod /lib/RT3070/Wireless/rt3070ap.ko
 insmod /lib/RT3070/Wireless/rtnet3070ap.ko
 echo "insmod rt3070 done"
 ifconfig ra0 up
 
-```
+{% endhighlight %} 
+
 成功挂载后，如下:
 
-```
+{% highlight bash %}
+
 [   40.275000] rt3070ap: module license 'RALINK' taints kernel.
 [   40.275000] Disabling lock debugging due to kernel taint
 [   40.345000] rtusb init --->
@@ -165,7 +177,8 @@ insmod rt3070 done
 [   43.775000] <==== rt28xx_init, Status=0
 [   43.780000] 0x1300 = 00064320
 
-```
+
+{% endhighlight %} 
 
 于是我们的PC就可以搜索到一个默认叫RT2860AP的wifi热点:
 ![wifi](/picture/wifi.png)

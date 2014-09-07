@@ -8,6 +8,9 @@ image:
   creditlink: http://mademistakes.com
 ---
 大家好，这是我的博客，我将在这里和大家分享学习笔记和新知识。
+和我联系，欢迎给我发email:
+
+> Email:ivincentlin@gmail.com
 
 This blog is powered by Jekyll using the So Simple Theme.
 

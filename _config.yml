@@ -43,18 +43,14 @@ links:
     url: /tags/
   - title: Articles
     url: /articles/
-  - title: Python
-    url: /Python/  
-  - title: Etymology
-    url: /etymology/
   - title: C/C++
     url: /cpp/
-  - title: 技术翻译
+  - title: translation
     url: /translate/
   - title: other
     url: /other/
-  - title: 新浪微博
-    url: http://weibo.com/smilingly1989
+  - title: weibo
+    url: http://weibo.com/311138928
     external: true
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
@@ -74,7 +70,7 @@ kramdown:
   use_coderay: true
 
   coderay:
-    coderay_line_numbers: 
+    coderay_line_numbers: table 
     coderay_line_numbers_start: 1
     coderay_tab_width: 4
     coderay_bold_every: 10

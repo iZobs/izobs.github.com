@@ -6,13 +6,14 @@ date: 2014-9-5 19:34
 category: "学习"
 comments: false
 tags : "driver"
-
+comments: ture
+share: ture 
 ---
 
 ##sysfs系统
 ###内核文档的描述
 
-```
+{% highlight text %}
 
 Chinese translated version of Documentation/filesystems/sysfs.txt
 
@@ -387,13 +388,13 @@ sysfs 目录结构以及其中包含的属性定义了一个内核与用户空�
 对于任何 ABI，其自身的稳定和适当的文档是非常重要的。所有新的 sysfs
 属性必须在 Documentation/ABI 中有文档。详见 Documentation/ABI/README。
 
-```
+{% endhighlight %} 
 
 sysfs与kobject的关系是非常紧密的，一般，一个kobject对象将会在sysfs系统中建立一个文件来记录kobject对象的属性。
 
 关于这个kobject结构体，我们再看一下文档的描述：
 
-```
+{% highlight text %}
 
 Everything you never wanted to know about kobjects, ksets, and ktypes
 这里有你想要的关于kobjects, ksets, and ktypes的一切
@@ -830,8 +831,7 @@ For a more complete example of using ksets and kobjects properly, see the
 example programs samples/kobject/{kobject-example.c,kset-example.c},
 which will be built as loadable modules if you select CONFIG_SAMPLE_KOBJECT.
 
-
-```
+{% endhighlight %} 
 
 ###基友udev系统
 ##devfs与udev系统的争论

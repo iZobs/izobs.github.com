@@ -11,30 +11,38 @@ DNSmasq是一个小巧且方便地用于配置DNS和DHCP的工具，适用于小
 
 首先你需要在make menuconfig 上面将dnsmasq package添加,编译好后在/etc/init.d/rcS中启动dnsmasp服务           
 
-```
+{% highlight bash %}
+
 /etc/init.d/dnsmasq start
-```
+
+{% endhighlight %} 
 
 启动不了，提示的erro是           
 
-```
+{% highlight bash %}
+
 cant't open /var/run/dnsmasq.pid
-```
+
+{% endhighlight %} 
+
 
 所以需要touch /var/run/dnsmasq.pid 
 
-```
+{% highlight bash %}
+
 mkdir -p /var/run
 cd /var/run      
 touch dnsmasq.pid
 cd / 
-```
+
+{% endhighlight %} 
+
 
 当你将无线网卡挂载好，接入wifi热点就会自动分配一个ip地址了。
 
-```
+{% highlight bash %}
 ifconfig ra0 192.168.1.1 netmask 255.255.255.0 up
-```
+{% endhighlight %} 
 
 
 ###桥接ra0和eth0
@@ -51,7 +59,8 @@ openWRT并没有将iptable 桥接功能独立开来，而是将其整合到系�
 
 简单的说，我们这个桥接功能是属于转发的功能,我们只需如何配置使其生效即可。在/etc/config/firewall.我的配置如下:
 
-```
+{% highlight bash %}
+
 //这个zone区是lan
 config 'zone'                    
         option 'name' 'lan'      
@@ -75,12 +84,12 @@ config 'forwarding'
         option 'src' 'lan'  
         option 'dest' 'wan'
 
-```
 
+{% endhighlight %} 
 下面看我的/etc/config/network的配置是如何的:
 
-```
 
+{% highlight bash %}
 config interface loopback
         option ifname   lo
         option proto    static
@@ -100,16 +109,17 @@ config interface lan
         option ipaddr   192.168.1.1
         option netmask  255.255.255.0
 
-```
 
 然后启动firewall 服务，就可以转发了。
 
-```
+{% endhighlight %} 
+
+{% highlight bash %}
+
 echo 1 >/proc/sys/net/ipv4/ip_forward
 /etc/init.d/firewall restart
 
-```
-
+{% endhighlight %} 
 连接wifi热点，ping 8.8.8.8试试。
 
 

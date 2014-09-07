@@ -8,6 +8,8 @@ tags : "driver"
 
 ![soc_camera.jpg](/picture/soc_camera.jpg)
 
+{% highlight text %}
+
 				Soc-Camera Subsystem
 				====================
 
@@ -172,3 +174,5 @@ tags : "driver"
 
 	--
 	Author: Guennadi Liakhovetski <g.liakhovetski@gmx.de>
+
+{% endhighlight %}

@@ -9,19 +9,20 @@ tags : "openwrt"
 ###openWRT的telnet登陆
 移植的openWRT在登陆的时候出现无法登陆的问题:
 
-```
+{% highlight bash %}
+
 [root@localhost dnw]# telnet 192.168.1.1
 Trying 192.168.1.1...
 telnet: connect to address 192.168.1.1: Connection refused
 
-```
+{% endhighlight %}
 
 对openWRT和telnet完全不懂，只能去raspberry pi的openWRT镜像寻找灵感。最后发现是自己的telnet服务没开启导致的 = =。openWRT官方怎么不默认开启呢？
 
 根据raspberry pi在/etc/init.d/telnet上做修改,
 `raspberry pi`
 
-<pre class="prettyprint" id="c++">
+{% highlight bash %}
 
 start() {
 	    if ( ! has_ssh_pubkey && \
@@ -32,9 +33,10 @@ start() {
 						    fi
 }
 
-</pre>
+{% endhighlight %}
+
 `webee210-WRT`
-<pre class="prettyprint" id="bash">
+{% highlight bash %}
 
 start() {                                       
 	        if ( ! has_root_pwd /etc/passwd && ! has_root_pwd /etc/shadow ) || \
@@ -44,7 +46,8 @@ start() {
 					fi           
 }   
 
-</pre>
+{% endhighlight %}
+
 没有反应，只能在/ect/init.de/rcs中添加:
 
         /usr/sbin/telnetd -l /bin/login.sh 

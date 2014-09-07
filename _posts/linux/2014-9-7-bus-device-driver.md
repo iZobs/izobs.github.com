@@ -6,15 +6,17 @@ date: 2014-9-7 9:34
 category: "学习"
 comments: false
 tags : "driver"
-
+comments: ture
+share: ture 
 ---
 
 ##Docunment
 
 linux有一种驱动模型由bus,device,driver三者构成。device是挂载在bus上的，而不同的device能在挂载的时候找到属于自己的driver.这三者的定义是怎么样的，而他们又是如何进行绑定的？下面从内核的Doucment/driver-model目录寻找答案。
+
 ###bus.txt
 
-```
+{% highlight text %}
 
 Bus Types 
 
@@ -193,11 +195,11 @@ sysfs directory using:
 int bus_create_file(struct bus_type *, struct bus_attribute *);
 void bus_remove_file(struct bus_type *, struct bus_attribute *);
 
-```
+{% endhighlight %}
 
 ###device.txt
 
-```
+{% highlight text %}
 
 The Basic Device Structure
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -304,14 +306,15 @@ attributes for a device at driver probe time.  If the device driver simply
 calls device_create_file() on the device structure passed to it, then
 userspace will never be notified of the new attributes.
 
-```
+{% endhighlight %}
+
 ###driver.txt
 
 这个我们已经很熟悉了，就不看了。
 
 ###三者是如何绑定，匹配的？
 
-```
+{% highlight text %}
 
 Driver Binding
 
@@ -416,8 +419,8 @@ When a driver is removed, the list of devices that it supports is
 iterated over, and the driver's remove callback is called for each
 one. The device is removed from that list and the symlinks removed. 
 
+{% endhighlight %}
 
-```
 
 ##翠花，上代码
 
@@ -639,7 +642,8 @@ module_exit(my_driver_exit);
 
 结果如下:
 
-```
+{% highlight bash %}
+
 devices  drivers  drivers_autoprobe  drivers_probe  uevent  version
 root@vm:/sys/bus/my_bus# tree
 .
@@ -655,4 +659,4 @@ root@vm:/sys/bus/my_bus# tree
 4 directories, 4 files
 root@vm:/sys/bus/my_bus# 
 
-```
+{% endhighlight %}

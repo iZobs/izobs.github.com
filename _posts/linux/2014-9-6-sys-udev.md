@@ -3,7 +3,7 @@
 layout: post
 title: "linux 的sysfs系统和udev系统"
 date: 2014-9-5 19:34
-category: "学习"
+category: trans
 comments: false
 tags : "driver"
 comments: ture
